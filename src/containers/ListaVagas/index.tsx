@@ -1,9 +1,9 @@
+import styled from 'styled-components'
+
 import { useState } from 'react'
 import FormVagas from '../../components/FormVagas'
 
 import Vaga from '../../components/Vaga'
-
-import styles from './ListaVagas.module.css'
 
 type Vaga = {
   id: string
@@ -96,10 +96,26 @@ const ListaVagas = () => {
     (x) => x.titulo.toLocaleLowerCase().search(filtro) >= 0
   )
 
+  const VagasEstilo = styled.div`
+    .vagas {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      column-gap: 16px;
+      row-gap: 16px;
+      margin-top: 32px;
+    }
+
+    @media (max-width: 768px) {
+      .vagas {
+        grid-template-columns: 1fr;
+      }
+    }
+  `
+
   return (
-    <div>
+    <VagasEstilo>
       <FormVagas aoPesquisar={(termo: string) => setFiltro(termo)} />
-      <ul className={styles.vagas}>
+      <ul className="vagas">
         {vagasFiltradas.map((vag) => (
           <Vaga
             key={vag.id}
@@ -113,7 +129,7 @@ const ListaVagas = () => {
           />
         ))}
       </ul>
-    </div>
+    </VagasEstilo>
   )
 }
 
